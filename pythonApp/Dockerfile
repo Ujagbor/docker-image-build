@@ -1,4 +1,3 @@
-
 # Use the official Python image from the Docker Hub with an Alpine variant
 FROM python:3.9-alpine
 
@@ -15,8 +14,14 @@ RUN apk update && \
 COPY app.py /usr/src/app/
 COPY templates/index.html /usr/src/app/templates/
 
+# Copy deploy.sh into the container
+COPY deploy.sh /usr/src/app/
+
 # Install AWS CLI
 RUN pip3 install awscli
+
+# Make deploy.sh executable
+RUN chmod +x /usr/src/app/deploy.sh
 
 # Expose port 5000
 EXPOSE 5000
