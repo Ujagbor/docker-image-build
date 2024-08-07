@@ -3,7 +3,7 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - master  # Trigger on pushes to the master branch
 
 jobs:
   build-and-deploy:
@@ -25,7 +25,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-python-app:latest .
+        docker build -t my-python-app:latest ./pythonApp
 
     - name: Tag Docker image
       run: |
