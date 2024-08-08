@@ -8,7 +8,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt /usr/src/app/
 RUN apk update && \
     apk add --no-cache py3-pip && \
-    pip3 install --no-cache-dir -r requirements.txt
+    pip3 install --no-cache-dir -r requirements.txt && \
+    pip3 install gunicorn  # Install gunicorn
 
 # Copy application files
 COPY app.py /usr/src/app/
@@ -26,6 +27,7 @@ RUN chmod +x /usr/src/app/deploy.sh
 # Expose port 5000
 EXPOSE 5000
 
-# Default command to run the application
-CMD ["python3", "app.py"]
+# Default command to run the application with gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+
 
